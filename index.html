@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Rescisão - Trabalhador Informal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator-box calculator">
+    <div class="calc-title">
+      <h2>Calculadora de Rescisão para Trabalhador Informal</h2>
+    </div>
+    <form id="calcRecisao">
+      <div class="form-group">
+        <label for="pay">Salário (R$):</label>
+        <input id="pay" type="text" placeholder="Ex: 2000,00" oninput="formatCurrency(this)" required />
+      </div>
+      <div class="form-group">
+        <label for="startDate">Data de início:</label>
+        <input id="startDate" type="text" placeholder="dd/mm/aaaa" maxlength="10" oninput="formatDate(this)" required />
+      </div>
+      <div class="form-group">
+        <label for="endDate">Data de término:</label>
+        <input id="endDate" type="text" placeholder="dd/mm/aaaa" maxlength="10" oninput="formatDate(this)" required />
+      </div>
+      <div class="form-group">
+        <label for="vacation">Recebeu férias?</label>
+        <select id="vacation" required>
+          <option value="N">Não</option>
+          <option value="S">Sim</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="decimoTerceiro">Recebeu 13º?</label>
+        <select id="decimoTerceiro" required>
+          <option value="N">Não</option>
+          <option value="S">Sim</option>
+        </select>
+      </div>
+      <button type="button" class="calc-button" id="abrirModalBtn">Calcular</button>
+    </form>
+  </div>
+
+  <!-- Modal para nome, email e whatsapp -->
+  <div class="modal-overlay" id="popupContato">
+    <div class="modal">
+      <button class="fechar-modal" onclick="fecharModal()">✖</button>
+      <h3>Informe seus dados para ver o resultado</h3>
+      <input type="text" id="nome" placeholder="Seu nome" required />
+      <input type="email" id="email" placeholder="Seu email" required />
+      <input type="tel" id="whats" placeholder="WhatsApp (ex: 11999999999)" required />
+      <button class="calc-button" onclick="enviarFormulario()">Enviar e Ver Resultado</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Calculando...</p>
+  </div>
+
+  <script src="js/calculo.js"></script>
+  <script src="js/integration.js"></script>
+  <script>
+    function fecharModal() {
+      document.getElementById('popupContato').style.display = 'none';
+    }
+
+    document.getElementById('abrirModalBtn').addEventListener('click', () => {
+      const salario = document.getElementById('pay').value.trim();
+      const inicio = document.getElementById('startDate').value.trim();
+      const fim = document.getElementById('endDate').value.trim();
+
+      if (!salario || !inicio || !fim) {
+        alert('Preencha os campos da calculadora antes de continuar.');
+        return;
+      }
+
+      document.getElementById('popupContato').style.display = 'flex';
+    });
+  </script>
+</body>
+</html>

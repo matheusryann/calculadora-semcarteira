@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resultado da Rescisão</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="calculator-box">
+    <h2>Resultado da Rescisão</h2>
+    <div id="resultadoContent"></div>
+    <button class="calc-button" onclick="window.location.href='index.html'">Calcular Novamente</button>
+  </div>
+
+  <script>
+    const resultado = JSON.parse(localStorage.getItem('resultado'));
+
+    if (resultado) {
+      document.getElementById('resultadoContent').innerHTML = `
+        <p><strong>Nome:</strong> ${resultado.nome}</p>
+        <p><strong>Email:</strong> ${resultado.email}</p>
+        <p><strong>WhatsApp:</strong> ${resultado.whatsapp}</p>
+        <p><strong>Início:</strong> ${resultado.inicio}</p>
+        <p><strong>Término:</strong> ${resultado.fim}</p>
+        <p><strong>O valor líquido aproximado da sua rescisão é:</strong> 
+          <span style="color:#27ae60; font-size: 20px;"><strong>R$ ${Number(resultado.valorCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong></span>
+        </p>
+
+        <div class="table-responsive">
+          <table class="table tb-values">
+            <thead>
+              <tr>
+                <th>Evento</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Saldo Salário</td><td>R$ ${Number(resultado.saldoSalario).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>Férias Vencidas + 1/3</td><td>R$ ${Number(resultado.feriasVencidas).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>Férias Proporcionais + 1/3</td><td>R$ ${Number(resultado.feriasProporcionais).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>13º Salário Anual</td><td>R$ ${Number(resultado.decimoTerceiroAnual).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>13º Salário Proporcional</td><td>R$ ${Number(resultado.decimoTerceiroProporcional).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>Aviso Prévio</td><td>R$ ${Number(resultado.avisoPrevio).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>FGTS</td><td>R$ ${Number(resultado.fgts).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>Multa FGTS (40%)</td><td>R$ ${Number(resultado.multaFGTS).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+              <tr><td>Adicional de Periculosidade</td><td>R$ ${Number(resultado.periculosidade).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td></tr>
+            </tbody>
+            <tfoot>
+              <tr class="tb-total">
+                <td><strong>Total</strong></td>
+                <td class="calc-total-positive"><strong>R$ ${Number(resultado.valorCalculado).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      `;
+    } else {
+      document.getElementById('resultadoContent').innerText = 'Nenhum dado encontrado.';
+    }
+  </script>
+</body>
+</html>
