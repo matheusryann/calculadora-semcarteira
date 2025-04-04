@@ -1,7 +1,7 @@
 async function enviarFormulario() {
-    const nome = document.getElementById('nomeCliente').value.trim();
-    const email = document.getElementById('emailCliente').value.trim();
-    const whatsapp = document.getElementById('whatsCliente').value.trim();
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const whatsapp = document.getElementById('whats').value.trim();
   
     if (!nome || !email || !whatsapp) {
       alert('Por favor, preencha todos os dados: nome, email e WhatsApp.');
@@ -20,12 +20,10 @@ async function enviarFormulario() {
       return;
     }
   
-    // Exibe loading
     document.getElementById('loading').style.display = 'flex';
   
     const resultado = calcularRescisao(salario, inicio, fim, ferias, decimo);
   
-    // Salvar todos os dados no localStorage
     localStorage.setItem('resultado', JSON.stringify({
       nome,
       email,
@@ -44,7 +42,6 @@ async function enviarFormulario() {
       valorCalculado: resultado.valorCalculado
     }));
   
-    // Envio para Google Sheets
     const formData = new FormData();
     formData.append("nome", nome);
     formData.append("email", email);
@@ -61,7 +58,6 @@ async function enviarFormulario() {
         throw new Error("Erro na resposta do servidor.");
       }
   
-      // Redireciona para página de resultado
       window.location.href = 'resultado.html';
   
     } catch (err) {
